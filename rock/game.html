@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rock Paper Scissors Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+      background: #f0f8ff;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      color: #333;
+    }
+
+    .buttons button {
+      font-size: 1.2em;
+      padding: 10px 20px;
+      margin: 10px;
+      cursor: pointer;
+    }
+
+    .scoreboard {
+      margin-top: 20px;
+      font-size: 1.2em;
+    }
+
+    .result {
+      font-size: 1.5em;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    .emoji {
+      font-size: 2em;
+    }
+
+    .reset-btn {
+      margin-top: 30px;
+      font-size: 1em;
+      padding: 10px 15px;
+      background: crimson;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>🪨📄✂️ Rock Paper Scissors</h1>
+
+  <div class="buttons">
+    <button onclick="play('rock')">🪨 Rock</button>
+    <button onclick="play('paper')">📄 Paper</button>
+    <button onclick="play('scissors')">✂️ Scissors</button>
+  </div>
+
+  <div class="result" id="result">Make your move!</div>
+  <div class="emoji" id="emoji"></div>
+
+  <div class="scoreboard">
+    <p>🏆 Wins: <span id="wins">0</span></p>
+    <p>💥 Losses: <span id="losses">0</span></p>
+    <p>🤝 Ties: <span id="ties">0</span></p>
+  </div>
+
+  <button class="reset-btn" onclick="resetGame()">🔄 Reset Game</button>
+
+  <script>
+    let wins = 0;
+    let losses = 0;
+    let ties = 0;
+
+    function play(playerChoice) {
+      const choices = ["rock", "paper", "scissors"];
+      const computerChoice = choices[Math.floor(Math.random() * 3)];
+
+      let resultText = "";
+      let emoji = "";
+
+      if (playerChoice === computerChoice) {
+        ties++;
+        resultText = `It's a tie! 🤝 You both chose ${playerChoice}.`;
+        emoji = "🤷";
+      } else if (
+        (playerChoice === "paper" && computerChoice === "rock") ||
+        (playerChoice === "rock" && computerChoice === "scissors") ||
+        (playerChoice === "scissors" && computerChoice === "paper")
+      ) {
+        wins++;
+        resultText = `You win! 🎉 ${playerChoice} beats ${computerChoice}.`;
+        emoji = "😎";
+      } else {
+        losses++;
+        resultText = `You lose! 😢 ${computerChoice} beats ${playerChoice}.`;
+        emoji = "💀";
+      }
+
+      document.getElementById("result").textContent = resultText;
+      document.getElementById("emoji").textContent = emoji;
+
+      document.getElementById("wins").textContent = wins;
+      document.getElementById("losses").textContent = losses;
+      document.getElementById("ties").textContent = ties;
+    }
+
+    function resetGame() {
+      wins = 0;
+      losses = 0;
+      ties = 0;
+      document.getElementById("result").textContent = "Game reset. Make your move!";
+      document.getElementById("emoji").textContent = "";
+      document.getElementById("wins").textContent = 0;
+      document.getElementById("losses").textContent = 0;
+      document.getElementById("ties").textContent = 0;
+    }
+  </script>
+</body>
+</html>
